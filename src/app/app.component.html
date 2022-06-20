@@ -1,3 +1,15 @@
-<p>
-  Start editing
-</p>
+<p>Start editing</p>
+<input
+  type="text"
+  placeholder="Please enter user name"
+  (keyup)="fetchUserData($event)"
+  [ngModel]="searchedUser"
+  (click)="toggle()"
+/>
+<ul *ngIf="userDataSelected">
+  <li *ngFor="let userData of searchResults" (click)="toggle(userData)">
+    <div>{{ userData.name }}</div>
+  </li>
+</ul>
+<!-- <div>{{ searchedUser }}</div>
+<div>{{ selectedInput }}</div> -->
