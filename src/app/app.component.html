@@ -1,15 +1,32 @@
-
 <input
   type="text"
   placeholder="Please enter user name"
   (keyup)="fetchUserData($event)"
   [ngModel]="searchedUser"
   (click)="toggle()"
+  (blur)="onBlur()"
 />
 <ul *ngIf="userDataSelected">
   <li *ngFor="let userData of searchResults" (click)="toggle(userData)">
     <div>{{ userData.name }}</div>
   </li>
 </ul>
-<!-- <div>{{ searchedUser }}</div>
-<div>{{ selectedInput }}</div> -->
+
+<form #f="ngForm">
+  <input
+    type="text"
+    required
+    name="firstname"
+    [(ngModel)]="user.firstname"
+    [ngModelOptions]="{ updateOn: 'blur' }"
+    #inputElem="ngModel"
+  />
+  <div *ngIf="inputElem.invalid && (inputElem.dirty || inputElem.touched)">
+    not valid name
+  </div>
+  <input type="text" required name="age" [(ngModel)]="user.age" />
+  <button (click)="onFormSubmit(f)">Submit</button>
+</form>
+
+<div>After submit</div>
+<div *ngIf="formD && formD.valid">{{user.firstname}}</div>
